@@ -1,3 +1,0 @@
-/home/cristian/Documents/UNAL/EstructurasComputacionales/Trabajos/ControlDeAcceso/build/CMakeFiles/ControlDeAcceso.dir
-/home/cristian/Documents/UNAL/EstructurasComputacionales/Trabajos/ControlDeAcceso/build/CMakeFiles/edit_cache.dir
-/home/cristian/Documents/UNAL/EstructurasComputacionales/Trabajos/ControlDeAcceso/build/CMakeFiles/rebuild_cache.dir
