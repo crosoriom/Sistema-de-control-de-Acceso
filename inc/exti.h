@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include "syscfg.h"
+#include "uart.h"
 #include "gpio.h"
 #include "nvic.h"
 
@@ -31,5 +32,6 @@ typedef enum {
 }Trigger_t;
 
 void gpio_interrupt_enable(gpio_t *GPIOx, PINx pin, Trigger_t trigger);
+void usart_interrupt_enable(usart_t *USARTx);
 
 #endif

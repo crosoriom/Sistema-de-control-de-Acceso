@@ -45,7 +45,7 @@ void gpio_set_highLevel(gpio_t *GPIOx, PINx pin)
 
 void gpio_set_lowLevel(gpio_t *GPIOx, PINx pin)
 {
-	2GPIOx->ODR &= ~(0x1U << pin);
+	GPIOx->ODR &= ~(0x1U << pin);
 }
 
 // int gpio_get_level(gpio_t *GPIOx, PINx pin, InputMode_t mode)

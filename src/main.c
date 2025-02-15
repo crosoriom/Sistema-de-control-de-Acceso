@@ -4,8 +4,8 @@
 #define DOOR_STATE GPIOA, PIN_4
 #define USER_BUTTON GPIOC, PIN_13
 
-#define TX GPIOA, PIN_2
-#define RX GPIOA, PIN_3
+#define TX PIN_2
+#define RX PIN_3
 
 #define TIME_UNLOCK 5000
 
@@ -17,15 +17,15 @@ int main(void)
     gpio_interrupt_enable(USER_BUTTON, FALLING_EDGE);
     configure_gpio_output(HEARTBEAT_PIN);
     configure_gpio_output(DOOR_STATE);
-    configure_gpio_usart(TX);
-    configure_gpio_usart(RX);
+    usart_init(USART2, GPIOA, TX, RX, ONE_STOP_BIT, EIGHT_BITS_LENGHT, 115200);
 
     uint32_t heartbeat_tick = 0;
     while(1)
     {
-        if(systick_getTick() - heartbeat_tick <= 500) {
+        if(systick_getTick() - heartbeat_tick >= 500) {
             heartbeat_tick = systick_getTick();
             gpio_toggle_level(HEARTBEAT_PIN);
+            usart_send_string(USART2, "Blink");
         }
         switch(state) {
             case LOCKED:

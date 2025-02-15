@@ -45,6 +45,6 @@ typedef struct {
 
 void activate_syscfg(void);
 void gpio_activate(uint8_t gpio);
-void usart2_activate(void);
+void usart_activate(uint8_t usart);
 
 #endif

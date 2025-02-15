@@ -36,6 +36,21 @@ void gpio_interrupt_enable(gpio_t *GPIOx, PINx pin, Trigger_t trigger)
         nvic_irq_enable(EXTI0_IRQn);
 }
 
+void usart_interrupt_enable(usart_t *USARTx)
+{
+    switch((uint32_t)USARTx) {                          //enable nvic irq
+        case (uint32_t)USART1:
+            nvic_irq_enable(USART1_IRQn);
+            break;
+        case (uint32_t)USART2:
+            nvic_irq_enable(USART2_IRQn);
+            break;
+        case (uint32_t)USART3:
+            nvic_irq_enable(USART3_IRQn);
+            break;
+    }
+}
+
 void EXTI9_5_IRQHandler()
 {
     if (EXTI->PR1 & (1 << 9))

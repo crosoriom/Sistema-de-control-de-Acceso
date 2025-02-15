@@ -7,9 +7,9 @@ set(CMAKE_SYSTEM_NAME               Generic)
 set(CMAKE_SYSTEM_PROCESSOR          ARM)
 
 set(TOOLCHAIN_PREFIX                arm-none-eabi-)
-set(FLAGS                           "-fdata-sections -ffunction-sections -Wl, --gc-sections")
+set(FLAGS                           "-fdata-sections -ffunction-sections")
 
-set(CMAKE_C_FLAGS                   "${FLAGS} -mcpu=cortex-m4 -mthumb -02")
+set(CMAKE_C_FLAGS                   "${FLAGS} -mcpu=cortex-m4 -mthumb -O2")
 set(CMAKE_ASM_FLAGS                 "-mcpu=cortex-m4 -mthumb -x assembler-with-cpp")
 
 set(CMAKE_C_COMPILER                ${TOOLCHAIN_PREFIX}gcc)
@@ -30,8 +30,22 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 
 set(SOURCES
     ${CMAKE_SOURCE_DIR}/startup_stm32l476rgtx.s
+    ${CMAKE_SOURCE_DIR}/inc/systick.h
+    ${CMAKE_SOURCE_DIR}/inc/syscfg.h
     ${CMAKE_SOURCE_DIR}/inc/main.h
+    ${CMAKE_SOURCE_DIR}/inc/exti.h
+    ${CMAKE_SOURCE_DIR}/inc/gpio.h
+    ${CMAKE_SOURCE_DIR}/inc/nvic.h
+    ${CMAKE_SOURCE_DIR}/inc/uart.h
+    ${CMAKE_SOURCE_DIR}/inc/rcc.h
+    ${CMAKE_SOURCE_DIR}/src/systick.c
+    ${CMAKE_SOURCE_DIR}/src/syscfg.c
     ${CMAKE_SOURCE_DIR}/src/main.c
+    ${CMAKE_SOURCE_DIR}/src/exti.c
+    ${CMAKE_SOURCE_DIR}/src/gpio.c
+    ${CMAKE_SOURCE_DIR}/src/nvic.c
+    ${CMAKE_SOURCE_DIR}/src/uart.c
+    ${CMAKE_SOURCE_DIR}/src/rcc.c
     ${CMAKE_SOURCE_DIR}/User/syscalls.c
     ${CMAKE_SOURCE_DIR}/User/sysmem.c
 )

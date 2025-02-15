@@ -3,13 +3,23 @@
 
 #include <stdint.h>
 #include "gpio.h"
+#include "exti.h"
 #include "rcc.h"
-#include "nvic.h"
 
+#define USART1 ((usart_t *)0x40013800UL)
 #define USART2 ((usart_t *)0x40004400UL)
+#define USART3 ((usart_t *)0x40004800UL)
+#define UART_4 ((usart_t *)0x40004C00UL)
+#define UART_5 ((usart_t *)0x40005000UL)
+
+#define USART_ENABLE (0x1U <<0)
+#define TX_ENABLE (0x1U << 3)
+#define RX_ENABLE (0x1U << 2)
+#define TRANSMIT_ENABLE
 
 #define BAUD_9600_4MHZ (0x1A1)
 #define WORD_8BITS_0_9BITS_1 (0x1U << 12)
+#define WORD_7BITS (0x1U << 28) | ~(0x1U << 12)
 
 typedef struct {
     volatile uint32_t CR1;
@@ -25,7 +35,24 @@ typedef struct {
     volatile uint32_t TDR;
 }usart_t;
 
+typedef enum {
+    HALF_STOP_BIT,
+    ONE_STOP_BIT,
+    ONE_HALF_STOP_BIT,
+    TWO_STOP_BITS
+}stopBit_t;
+
+typedef enum {
+    SEVEN_BITS_LENGHT,
+    EIGHT_BITS_LENGHT,
+    NINE_BITS_LENGHT
+}lenghtBit_t;
+
 void configure_gpio_usart(gpio_t *GPIOx, PINx pin);
-void usart_init(usart_t *USARTx, gpio_t *GPIOx, PINx tx, PINx rx);
+void usart_init(usart_t *USARTx, gpio_t *GPIOx, PINx tx, PINx rx, stopBit_t stop, lenghtBit_t wordLengt, int baudrate);
+void usart_set_stop_bits(usart_t *USARTx, stopBit_t stop);
+void usart_set_word_lenght(usart_t *USARTx, lenghtBit_t lenght);
+void enable_RXNE(usart_t *USARTx);
+void usart_send_string(usart_t *USARTx, char *str);
 
 #endif
