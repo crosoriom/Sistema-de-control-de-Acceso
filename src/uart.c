@@ -14,20 +14,6 @@ int usart_number(usart_t *USARTx)
         return 5;
 }
 
-void configure_gpio_usart(gpio_t *GPIOx, PINx pin)
-{
-    configure_gpio_alternateFunctionMode(GPIOx, pin);
-    if(pin <= PIN_7) {                                  //select register for mapping de AF7(UART) to pin
-        GPIOx->AFRL &= ~(0xFU << (4 * pin));            //resets the register
-        GPIOx->AFRL |= (0x7U << (4 * pin));             //writes 0111 in the register
-    } else {
-        GPIOx->AFRH &= ~(0xFU << (4 * pin));
-        GPIOx->AFRH |= (0x7U << (4 * pin));
-    }
-    GPIOx->OSPEEDR |= (0x3U <<(2 * pin));               //gpio CLK to very high speed for uart com
-    GPIOx->PUPDR &= ~(0x3U <<(2 * pin));                //no pull-up pull-down mode
-}
-
 void usart_init(usart_t *USARTx, gpio_t *GPIOx, PINx tx, PINx rx, stopBit_t stop, lenghtBit_t wordLenght, int baudRate)
 {
     usart_activate(usart_number(USARTx));
@@ -81,7 +67,7 @@ void usart_set_word_lenght(usart_t *USARTx, lenghtBit_t lenght)
 void enable_RXNE(usart_t *USARTx)
 {
     USARTx->CR1 |= (0x1U << 5);                         //enable RXNEIE register for lauching the RXNE interrupt
-    usart_interrupt_enable(USARTx);
+    usart_interrupt_enable(usart_number(USARTx));
 }
 
 void usart_send_string(usart_t *USARTx, char *str)

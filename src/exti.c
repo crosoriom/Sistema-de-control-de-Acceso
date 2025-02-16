@@ -36,16 +36,16 @@ void gpio_interrupt_enable(gpio_t *GPIOx, PINx pin, Trigger_t trigger)
         nvic_irq_enable(EXTI0_IRQn);
 }
 
-void usart_interrupt_enable(usart_t *USARTx)
+void usart_interrupt_enable(uint8_t USART)
 {
-    switch((uint32_t)USARTx) {                          //enable nvic irq
-        case (uint32_t)USART1:
+    switch(USART) {                          //enable nvic irq
+        case 1:
             nvic_irq_enable(USART1_IRQn);
             break;
-        case (uint32_t)USART2:
+        case 2:
             nvic_irq_enable(USART2_IRQn);
             break;
-        case (uint32_t)USART3:
+        case 3:
             nvic_irq_enable(USART3_IRQn);
             break;
     }

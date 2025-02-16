@@ -27,5 +27,7 @@ void usart_activate(uint8_t usart)
 			RCC->APB1ENR1 |= (0x1 << 19);
 		case 5:
 			RCC->APB1ENR1 |= (0x1 << 20);
+		default:
+			return;
 	}
 }

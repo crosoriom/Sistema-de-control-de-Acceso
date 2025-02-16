@@ -7,9 +7,9 @@ typedef struct {
 	volatile uint32_t CALIB;
 }SysTick_t;
 
-#define SYSTICK ((SysTick_t *)0xE000E010UL)	//Base address if System Timer.
+#define SYSTICK ((SysTick_t *)0xE000E010UL)	//Base address of System Timer.
 
-volatile uint32_t ms_counter = 0;
+volatile uint32_t tick_counter = 0;
 
 void systick_init(uint32_t ticks)
 {
@@ -17,22 +17,22 @@ void systick_init(uint32_t ticks)
 	
 	if(ticks > 0x00FFFFFF)
 		ticks = 0x00FFFFFF;
-	SYSTICK->LOAD = ticks;					//Load the desired time for the Syster Timer Exception
+	SYSTICK->LOAD = ticks;					//Load the desired time for the System Timer Exception
 
 	SYSTICK->CTRL = 0x7;					//Write 111 on bits 2,1 and 0 in STK_CTRL Register. Turns on the System Timer and the Exception Requester.
 }
 
 uint32_t systick_getTick(void)
 {
-	return ms_counter;
+	return tick_counter;
 }
 
 void systick_reset(void)
 {
-	ms_counter = 0;
+	tick_counter = 0;
 }
 
 void SysTick_Handler(void)
 {
-	ms_counter++;
+	tick_counter++;
 }

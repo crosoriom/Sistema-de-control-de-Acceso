@@ -65,6 +65,16 @@ typedef struct {
     volatile uint32_t STIR;
 }NestedVectoredInterruptController_t;
 
+/**
+ * @brief Activa una interrupción.
+ *
+ * La función escribe en el registro correspondiente
+ * el bit que activa la interrupción que se pasa como
+ * argumento.
+ *
+ * @param irq Enumeración a la interrupción del vector
+ * global de interrupciones.
+ */
 void nvic_irq_enable(IRQn_t irq);
 
 #endif

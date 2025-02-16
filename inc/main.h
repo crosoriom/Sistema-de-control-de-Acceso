@@ -1,3 +1,6 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 #include <stdint.h>
 #include "systick.h"
 #include "gpio.h"
@@ -9,3 +12,5 @@ typedef enum {
     TEMPORAL_UNLOCK,
     PERMANENT_UNLOCK
 }state_t;
+
+#endif

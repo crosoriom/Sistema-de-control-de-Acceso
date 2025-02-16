@@ -38,6 +38,20 @@ void configure_gpio_alternateFunctionMode(gpio_t *GPIOx, PINx pin)
 	GPIOx->MODER |= (0x2U << (2 * pin));
 }
 
+void configure_gpio_usart(gpio_t *GPIOx, PINx pin)
+{
+    configure_gpio_alternateFunctionMode(GPIOx, pin);
+    if(pin <= PIN_7) {                                  //select register for mapping de AF7(UART) to pin
+        GPIOx->AFRL &= ~(0xFU << (4 * pin));            //resets the register
+        GPIOx->AFRL |= (0x7U << (4 * pin));             //writes 0111 in the register
+    } else {
+        GPIOx->AFRH &= ~(0xFU << (4 * pin));
+        GPIOx->AFRH |= (0x7U << (4 * pin));
+    }
+    GPIOx->OSPEEDR |= (0x3U <<(2 * pin));               //gpio CLK to very high speed for uart com
+    GPIOx->PUPDR &= ~(0x3U <<(2 * pin));                //no pull-up pull-down mode
+}
+
 void gpio_set_highLevel(gpio_t *GPIOx, PINx pin)
 {
 	GPIOx->ODR |= (0x1U << pin);

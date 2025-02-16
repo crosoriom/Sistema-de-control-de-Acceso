@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 #include "syscfg.h"
-#include "uart.h"
 #include "gpio.h"
 #include "nvic.h"
 
@@ -31,7 +30,38 @@ typedef enum {
     BOTH_EDGES
 }Trigger_t;
 
+/**
+ * @brief Activa el reloj del GPIO, y configura el pin para recibir interrupciones.
+ *
+ * La función es igual a configure_gpio_input() pero además se encarga
+ * de activar las interrupciones correspondientes del pin que se recibe
+ * como argumento.
+ *
+ * @param *GPIOx Dirección del puerto GPIO.
+ * @param pin Enumeración del pin a configurar
+ * @param trigger Enumeración que indica el tipo de disparo para la
+ * interrupción:
+ *                  - RISING_EDGE
+ *                  - FALLING_EDGE
+ *                  - BOTH_EDGES
+ *
+ * @note Si solo se desea establecer el pin como salida y no activar
+ * su interrupción, vease configure_gpio_input().
+ */
 void gpio_interrupt_enable(gpio_t *GPIOx, PINx pin, Trigger_t trigger);
-void usart_interrupt_enable(usart_t *USARTx);
+
+/**
+ * @brief Activa las interrupciones de UART.
+ *
+ * La función configura los registros para activar
+ * la interrupción del NVIC (vector global de
+ * interrupciones) correspondiente al puerto de
+ * comunicación serial UART o USART que se esté
+ * utilizando.
+ *
+ * @param *USARTx Dirección del dispositivo de
+ * comunicación a configurar.
+ */
+void usart_interrupt_enable(uint8_t USARTx);
 
 #endif

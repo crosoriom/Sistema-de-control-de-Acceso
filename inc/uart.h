@@ -48,7 +48,6 @@ typedef enum {
     NINE_BITS_LENGHT
 }lenghtBit_t;
 
-void configure_gpio_usart(gpio_t *GPIOx, PINx pin);
 void usart_init(usart_t *USARTx, gpio_t *GPIOx, PINx tx, PINx rx, stopBit_t stop, lenghtBit_t wordLengt, int baudrate);
 void usart_set_stop_bits(usart_t *USARTx, stopBit_t stop);
 void usart_set_word_lenght(usart_t *USARTx, lenghtBit_t lenght);

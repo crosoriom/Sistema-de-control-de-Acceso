@@ -53,13 +53,125 @@ typedef struct {
 	volatile uint32_t ASCR;
 }gpio_t;
 
+/**
+ * @brief Tranforma la dirección de un GPIO en un entero
+ *
+ * La función convierte la dirección de uno de los puertos
+ * GPIO en un número entero de 8 bits.
+ *
+ * @param[in] *GPIOx Dirección al puerto GPIO
+ * @return Numero entero equivalente al puerto pasado como
+ * argumento:
+ * 				GPIOA -> 0
+ * 				...
+ * 				GPIOH -> 7
+ *
+ * @warning La función retorna un valor de 0xFF si se
+ * suministra un argumento inválido.
+ */
 uint8_t get_gpio_number(gpio_t *GPIOx);
+
+/**
+ * @brief Establece el pin del GPIO como entrada
+ *
+ * La función se encarga de activar el reloj del GPIO
+ * pasado como argumento y escribe el registro al pin
+ * correspondiente para configurar este como entrada.
+ *
+ * @param[in] *GPIOx Dirección al puerto GPIO
+ * @param[in] pin Enumeración correspondiente del pin
+ * deseado
+ *
+ * @note Si se desea activar las interrupciones
+ * externas para los pines GPIO, vease la función
+ * gpio_interrupt_enable().
+ */
 void configure_gpio_input(gpio_t *GPIOx, PINx pin);
+
+/**
+ * @brief Establece el pin del GPIO como salida
+ *
+ * La función se encarga de activar el reloj del GPIO
+ * pasado como argumento y escribe el registro del pin
+ * correspondiente para configurarlo como salida.
+ *
+ * @param[in] *GPIOx Dirección al puerto GPIO
+ * @param[in] pin Enumeración correspondiente del pin
+ * deseado
+ */
 void configure_gpio_output(gpio_t *GPIOx, PINx pin);
+
+/**
+ * @brief Configura el pin del GPIO en modo alterno.
+ *
+ * La función se encarga de activar el reloj del GPIO
+ * pasado como argumento y escribe el registro del pin
+ * correspondiente para que este funcione como salida
+ * o entrada de alguno de los periféricos del MC.
+ *
+ * @param[in] *GPIOx Dirección al puerto GPIO
+ * @param[in] pin Enumeración correspondiente del pin
+ * deseado
+ */
 void configure_gpio_alternateFunctionMode(gpio_t *GPIOx, PINx pin);
+
+/**
+ * @brief Configura el pin del GPIO para UART/USART.
+ *
+ * La función se encarga de configurar el pin del
+ * GPIO para funcionar como tx/rx en comunicación
+ * serial UART/USART.
+ *
+ * @param[in] *GPIOx Dirección al puerto GPIO
+ * @param[in] pin Enumeración correspondiente del pin
+ * a configurar.
+ */
+void configure_gpio_usart(gpio_t *GPIOx, PINx pin);
+
+/**
+ * @brief Establece el nivel de salida del pin en bajo.
+ *
+ * La función se encarga de establecer en el registro
+ * ODR al pin del GPIO correspondiente los bits
+ * apropiados para establecerlo en nivel bajo.
+ *
+ * @param[in] *GPIOx Dirección al puerto GPIO
+ * @param[in] pin Enumeración correspondiente del pin
+ * deseado
+ *
+ * @warning El pin debe estar configurado como salida.
+ */
 void gpio_set_lowLevel(gpio_t *GPIOx, PINx pin);
+
+/**
+ * @brief Establece el nivel de salida del pin en alto.
+ *
+ * La función se encarga de establecer en el registro
+ * ODR al pin del GPIO correspondiente los bits
+ * apropiados para establecerlo en nivel alto.
+ *
+ * @param[in] *GPIOx Dirección al puerto GPIO
+ * @param[in] pin Enumeración correspondiente del pin
+ * deseado
+ *
+ * @warning El pin debe estar configurado como salida.
+ */
 void gpio_set_highLevel(gpio_t *GPIOx, PINx pin);
-int gpio_get_level(gpio_t *GPIOx, PINx pin, InputMode_t mode);
+//int gpio_get_level(gpio_t *GPIOx, PINx pin, InputMode_t mode);
+
+/**
+ * @brief Intercambia el nivel de salida del pin.
+ *
+ * La función aplica una operación XOR al estado
+ * altual del pin GPIO. Si este último se encuentra
+ * en estado alto lo pasa a estado bajo y visceversa.
+ *
+ * @param[in] *GPIOx Dirección al puerto GPIO
+ * @param[in] pin Enumeración correspondiente del pin
+ * deseado
+ *
+ * @warning El pin debe estar configurado como salida.
+ */
 void gpio_toggle_level(gpio_t *GPIOx, PINx pin);
 
 #endif

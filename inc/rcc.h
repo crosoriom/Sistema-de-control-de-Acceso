@@ -43,8 +43,46 @@ typedef struct {
 	volatile uint32_t CSR;
 }ResetClockControl_t;
 
+/**
+ * @brief Activa el reloj de SysCfg
+ *
+ * La función activa el reloj que permite las
+ * configuraciones del sistema, tales como
+ * buses, interrupciones, etc.
+ */
 void activate_syscfg(void);
+
+/**
+ * @brief Activa el reloj del GPIO
+ *
+ * La función se encarga de activar el
+ * reloj de los GPIOs. Recibe como argumento
+ * un número del 0 al 7 para cada puerto.
+ *
+ * @param gpio número correspondiente al
+ * puerto a activar.
+ *
+ * @warning Si recibe un número que no esté entre
+ * el rango especificado o 0xFF puede ocurrir un
+ * error.
+ */
 void gpio_activate(uint8_t gpio);
+
+/**
+ * @brief Activa el reloj para UART
+ *
+ * La función activa el reloj que permite usar
+ * los periféricos de comunicación serial UART o
+ * USART. Debe recibir como argumento un número
+ * entre 0 y 5.
+ *
+ * @param usart Número correspondiente para
+ * el periferico a activar.
+ *
+ * @note Si el número que se pasa como argumento
+ * no está dentro del rango indicado, no ocurrirá
+ * nada.
+ */
 void usart_activate(uint8_t usart);
 
 #endif
