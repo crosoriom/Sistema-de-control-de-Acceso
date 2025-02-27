@@ -22,7 +22,7 @@ void usart_init(usart_t *USARTx, gpio_t *GPIOx, PINx tx, PINx rx, stopBit_t stop
     configure_gpio_usart(GPIOx, rx);
 
     USARTx->CR1 &= ~USART_ENABLE;                       //disable uart for configuration
-    USARTx->BRR = baudRate;                             //set the baud rate
+    USARTx->BRR = 4000000 / baudRate;                   //set the baud rate
     usart_set_word_lenght(USARTx, wordLenght);
     usart_set_stop_bits(USARTx, stop);
     USARTx->CR1 |= TX_ENABLE | RX_ENABLE;               //enable tx and rx
@@ -70,10 +70,11 @@ void enable_RXNE(usart_t *USARTx)
     usart_interrupt_enable(usart_number(USARTx));
 }
 
-void usart_send_string(usart_t *USARTx, char *str)
+void usart_send_string(usart_t *USARTx, const char *str)
 {
-    while(*str)
-        while(1)
-            USARTx->TDR = *str++;
+    while(*str) {
+        while(!(USARTx->ISR & TRANSMIT_ENABLE));
+        USARTx->TDR = (*str++); //& 0xFF;
+    }
 }
 

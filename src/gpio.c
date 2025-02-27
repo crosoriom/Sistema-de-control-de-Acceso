@@ -29,6 +29,15 @@ void configure_gpio_output(gpio_t *GPIOx, PINx pin)
 	gpio_activate(get_gpio_number(GPIOx));
 	reset_gpio_mode(GPIOx, pin);
 	GPIOx->MODER |= (0x1U << (2 * pin));
+	GPIOx->OTYPER &= ~(0x1U << pin);
+}
+
+void configure_gpio_ODmode(gpio_t *GPIOx, PINx pin)
+{
+	gpio_activate(get_gpio_number(GPIOx));
+	reset_gpio_mode(GPIOx, pin);
+	GPIOx->MODER |= (0x1U << (2 * pin));
+	GPIOx->OTYPER |= (0x1U << pin);
 }
 
 void configure_gpio_alternateFunctionMode(gpio_t *GPIOx, PINx pin)

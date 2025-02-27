@@ -102,6 +102,20 @@ void configure_gpio_input(gpio_t *GPIOx, PINx pin);
 void configure_gpio_output(gpio_t *GPIOx, PINx pin);
 
 /**
+ * @brief Establece el pin del GPIO en salida OD
+ *
+ * La función se encarga de activar el reloj del GPIO
+ * pasado como argumento y escribe los registros del
+ * pin correspondiente para configurarlo como salida
+ * Open-Drain.
+ *
+ * @param[in] *GPIOx Dirección al puerto GPIO
+ * @param[in] pin Enumeración correspondiente del pin
+ * deseado
+ */
+void configure_gpio_ODmode(gpio_t *GPIOx, PINx pin);
+
+/**
  * @brief Configura el pin del GPIO en modo alterno.
  *
  * La función se encarga de activar el reloj del GPIO

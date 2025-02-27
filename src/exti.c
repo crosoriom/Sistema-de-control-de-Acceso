@@ -72,11 +72,13 @@ void EXTI4_IRQHandler()
 
 void EXTI3_IRQHandler()
 {
+    EXTI->PR1 = (1 << 3);
     /*Insertar código*/;
 }
 
 void EXTI2_IRQHandler()
 {
+    EXTI->PR1 = (1 << 2);
     /*Insertar código*/;
 }
 

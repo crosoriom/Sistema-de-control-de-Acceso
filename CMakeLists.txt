@@ -27,6 +27,7 @@ include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/User)
 include_directories(${CMAKE_SOURCE_DIR}/inc)
 include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/drivers)
 
 set(SOURCES
     ${CMAKE_SOURCE_DIR}/startup_stm32l476rgtx.s
@@ -38,13 +39,13 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/inc/nvic.h
     ${CMAKE_SOURCE_DIR}/inc/uart.h
     ${CMAKE_SOURCE_DIR}/inc/rcc.h
+    ${CMAKE_SOURCE_DIR}/src/main.c
     ${CMAKE_SOURCE_DIR}/src/systick.c
     ${CMAKE_SOURCE_DIR}/src/syscfg.c
-    ${CMAKE_SOURCE_DIR}/src/main.c
-    ${CMAKE_SOURCE_DIR}/src/exti.c
     ${CMAKE_SOURCE_DIR}/src/gpio.c
-    ${CMAKE_SOURCE_DIR}/src/nvic.c
     ${CMAKE_SOURCE_DIR}/src/uart.c
+    ${CMAKE_SOURCE_DIR}/src/exti.c
+    ${CMAKE_SOURCE_DIR}/src/nvic.c
     ${CMAKE_SOURCE_DIR}/src/rcc.c
     ${CMAKE_SOURCE_DIR}/User/syscalls.c
     ${CMAKE_SOURCE_DIR}/User/sysmem.c
