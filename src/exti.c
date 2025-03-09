@@ -51,20 +51,6 @@ void usart_interrupt_enable(uint8_t USART)
     }
 }
 
-void EXTI9_5_IRQHandler()
-{
-    if (EXTI->PR1 & (1 << 9))
-        EXTI->PR1 = (1 << 9);
-    if (EXTI->PR1 & (1 << 8))
-        EXTI->PR1 = (1 << 8);
-    if (EXTI->PR1 & (1 << 7))
-        EXTI->PR1 = (1 << 7);
-    if (EXTI->PR1 & (1 << 6))
-        EXTI->PR1 = (1 << 6);
-    if (EXTI->PR1 & (1 << 5))
-        EXTI->PR1 = (1 << 5);
-}
-
 void EXTI4_IRQHandler()
 {
     /*Insertar código*/;

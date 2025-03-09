@@ -98,6 +98,9 @@ void configure_gpio_input(gpio_t *GPIOx, PINx pin);
  * @param[in] *GPIOx Dirección al puerto GPIO
  * @param[in] pin Enumeración correspondiente del pin
  * deseado
+ *
+ * @note Esta función configura el pin como usa salida
+ * simple, para modo Open-Drain use configure_gpio_ODmode.
  */
 void configure_gpio_output(gpio_t *GPIOx, PINx pin);
 
@@ -171,7 +174,8 @@ void gpio_set_lowLevel(gpio_t *GPIOx, PINx pin);
  * @warning El pin debe estar configurado como salida.
  */
 void gpio_set_highLevel(gpio_t *GPIOx, PINx pin);
-//int gpio_get_level(gpio_t *GPIOx, PINx pin, InputMode_t mode);
+
+int gpio_getLevel(gpio_t *GPIOx, PINx pin, InputMode_t mode);
 
 /**
  * @brief Intercambia el nivel de salida del pin.

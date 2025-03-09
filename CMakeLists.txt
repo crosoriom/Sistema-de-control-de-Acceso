@@ -31,6 +31,7 @@ include_directories(${CMAKE_SOURCE_DIR}/drivers)
 
 set(SOURCES
     ${CMAKE_SOURCE_DIR}/startup_stm32l476rgtx.s
+    ${CMAKE_SOURCE_DIR}/drivers/KeyPad/keypad.h
     ${CMAKE_SOURCE_DIR}/inc/systick.h
     ${CMAKE_SOURCE_DIR}/inc/syscfg.h
     ${CMAKE_SOURCE_DIR}/inc/main.h
@@ -40,6 +41,8 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/inc/uart.h
     ${CMAKE_SOURCE_DIR}/inc/rcc.h
     ${CMAKE_SOURCE_DIR}/src/main.c
+    ${CMAKE_SOURCE_DIR}/drivers/KeyPad/keypad.c
+    ${CMAKE_SOURCE_DIR}/inc/systick.h
     ${CMAKE_SOURCE_DIR}/src/systick.c
     ${CMAKE_SOURCE_DIR}/src/syscfg.c
     ${CMAKE_SOURCE_DIR}/src/gpio.c

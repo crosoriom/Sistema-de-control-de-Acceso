@@ -11,6 +11,8 @@
 
 //state_t state = LOCKED;
 //volatile char mesage[] = "Blink\n";
+extern char key;
+extern keypad_t keypad;
 
 int main(void)
 {
@@ -19,6 +21,8 @@ int main(void)
     configure_gpio_output(HEARTBEAT_PIN);
     //configure_gpio_output(DOOR_STATE);
     usart_init(USART2, GPIOA, TX, RX, ONE_STOP_BIT, EIGHT_BITS_LENGHT, 115200);
+    keypad_init(keypad);
+    usart_send_string(USART2, "MC started!\n");
 
     uint32_t heartbeat_tick = 0;
     while(1)
@@ -26,7 +30,10 @@ int main(void)
         if(systick_getTick() - heartbeat_tick >= 500) {
             heartbeat_tick = systick_getTick();
             gpio_toggle_level(HEARTBEAT_PIN);
-            usart_send_string(USART2, "Blink\n");
+        }
+        if(key != 0) {
+            usart_send_string(USART2, &key);
+            key = 0;
         }
         //switch(state) {
         //    case LOCKED:
@@ -43,19 +50,3 @@ int main(void)
     }
 }
 
-//void EXTI15_10_IRQHandler(void)
-//{
-//    if (EXTI->PR1 & (1 << 13)) {
-//        gpio_set_highLevel(DOOR_STATE);
-//        if(state == LOCKED)
-//            state = TEMPORAL_UNLOCK;
-//        else if(state == TEMPORAL_UNLOCK)
-//            state = PERMANENT_UNLOCK;
-//        else
-//            state = LOCKED;
-//        EXTI->PR1 = (1 << 13);
-//    }
-//    if(EXTI->PR1 & (1 << 10)) {
-//        EXTI->PR1 = (1 << 10);
-//    }
-//}

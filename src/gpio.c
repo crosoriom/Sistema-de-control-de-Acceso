@@ -71,23 +71,23 @@ void gpio_set_lowLevel(gpio_t *GPIOx, PINx pin)
 	GPIOx->ODR &= ~(0x1U << pin);
 }
 
-// int gpio_get_level(gpio_t *GPIOx, PINx pin, InputMode_t mode)
-// {
-// 	switch(mode) {
-// 	case PULLUP:
-// 		if((GPIOx->IDR & (1 << pin)) == 0)
-// 			return 1;
-// 		else
-// 			return 0;
-// 		break;
-// 	case PULLDOWN:
-// 		if((GPIOx->IDR & (1 << pin)) == 1)
-// 			return 1;
-// 		else
-// 			return 0;
-// 		break;
-// 	}
-// }
+int gpio_getLevel(gpio_t *GPIOx, PINx pin, InputMode_t mode)
+{
+	switch(mode) {
+	case PULLUP:
+		if((GPIOx->IDR & (1 << pin)) == 0)
+			return 1;
+		else
+			return 0;
+		break;
+	case PULLDOWN:
+		if((GPIOx->IDR & (1 << pin)) == 1)
+			return 1;
+		else
+			return 0;
+		break;
+	}
+}
 
 void gpio_toggle_level(gpio_t *GPIOx, PINx pin)
 {
