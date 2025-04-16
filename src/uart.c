@@ -21,12 +21,12 @@ void usart_init(usart_t *USARTx, gpio_t *GPIOx, PINx tx, PINx rx, stopBit_t stop
     configure_gpio_usart(GPIOx, tx);
     configure_gpio_usart(GPIOx, rx);
 
-    USARTx->CR1 &= ~USART_ENABLE;                       //disable uart for configuration
+    USARTx->CR1 &= ~ENABLE_USART;                       //disable uart for configuration
     USARTx->BRR = 4000000 / baudRate;                   //set the baud rate
     usart_set_word_lenght(USARTx, wordLenght);
     usart_set_stop_bits(USARTx, stop);
-    USARTx->CR1 |= TX_ENABLE | RX_ENABLE;               //enable tx and rx
-    USARTx->CR1 |= USART_ENABLE;                        //enable uart
+    USARTx->CR1 |= ENABLE_TX | ENABLE_RX;               //enable tx and rx
+    USARTx->CR1 |= ENABLE_USART;                        //enable uart
 }
 
 void usart_set_stop_bits(usart_t *USARTx, stopBit_t stop)
@@ -78,3 +78,17 @@ void usart_send_string(usart_t *USARTx, const char *str)
     }
 }
 
+char* usart_receive_string(usart_t *USARTx)
+{
+    static char buffer[50];
+    int i = 0;
+
+    for(;;) {
+        buffer[i] = USARTx->RDR;
+        if(buffer[i] == '\n' || buffer[i] == '\r' || i >= 48) {
+            buffer[i + 1] = '\0';
+            return buffer;
+        }
+        ++i;
+    }
+}

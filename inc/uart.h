@@ -12,10 +12,11 @@
 #define UART_4 ((usart_t *)0x40004C00UL)
 #define UART_5 ((usart_t *)0x40005000UL)
 
-#define USART_ENABLE (0x1U <<0)
-#define TX_ENABLE (0x1U << 3)
-#define RX_ENABLE (0x1U << 2)
+#define ENABLE_USART (0x1U <<0)
+#define ENABLE_TX (0x1U << 3)
+#define ENABLE_RX (0x1U << 2)
 #define TRANSMIT_ENABLE (0x1U << 7)
+#define RECEIVE_ENABLE (0x1U << 5)
 
 #define BAUD_9600_4MHZ (0x1A1)
 #define WORD_8BITS_0_9BITS_1 (0x1U << 12)
@@ -74,5 +75,6 @@ void usart_set_stop_bits(usart_t *USARTx, stopBit_t stop);
 void usart_set_word_lenght(usart_t *USARTx, lenghtBit_t lenght);
 void enable_RXNE(usart_t *USARTx);
 void usart_send_string(usart_t *USARTx, const char *str);
+char* usart_receive_string(usart_t *USARTx);
 
 #endif
